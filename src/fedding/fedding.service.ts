@@ -1,19 +1,27 @@
+import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { CreateFeddingDto } from './dto/create-fedding.dto';
 import { UpdateFeddingDto } from './dto/update-fedding.dto';
+import { Model } from 'mongoose';
+import { feddingDocument } from './schemas/fedding.schema';
 
 @Injectable()
 export class FeddingService {
+  constructor(
+    @InjectModel(Worker.name)
+    private readonly feddingModule: Model<feddingDocument>,
+  ) {}
+
   create(createFeddingDto: CreateFeddingDto) {
-    return 'This action adds a new fedding';
+    return this.feddingModule.create(createFeddingDto);
   }
 
   findAll() {
-    return `This action returns all fedding`;
+    return this.feddingModule.find().exec();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} fedding`;
+    return this.feddingModule.findById({ id });
   }
 
   update(id: number, updateFeddingDto: UpdateFeddingDto) {

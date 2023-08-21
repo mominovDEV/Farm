@@ -1,15 +1,15 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { WorkerModule } from './../worker/worker.module';
+// import { WorkerModule } from './../worker/worker.module';
 import { Injectable } from '@nestjs/common';
 import { CreateBlockDto } from './dto/create-block.dto';
 import { UpdateBlockDto } from './dto/update-block.dto';
-import { BlockDocument } from './schemas/block.schema';
+import { Block, BlockDocument } from './schemas/block.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class BlocksService {
   constructor(
-    @InjectModel(Worker.name)
+    @InjectModel(Block.name)
     private readonly blockModule: Model<BlockDocument>,
   ) {}
   create(createBlockDto: CreateBlockDto) {
